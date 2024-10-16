@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  Onboarding.swift
 //  LittleLemonProjectCapstone
 //
 //  Created by Adnann Muratovic on 16.10.24.
@@ -7,15 +7,12 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct Onboarding: View {
     var body: some View {
-        VStack {
-            Text("Hello, world!")
-        }
-        .padding()
+        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
     }
 }
 
 #Preview {
-    ContentView()
+    Onboarding()
 }
