@@ -8,11 +8,59 @@
 import SwiftUI
 
 struct Onboarding: View {
+    
+    @StateObject private var vm = OnboardingViewModel()
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        LittleLemonLogo()
+            .padding(.top, 50)
+        
+        Text("Registration")
+            .padding([.leading, .trailing], 40)
+            .padding([.top, .bottom], 8)
+            .foregroundStyle(Color.primary1)
+            .background(Color.gray.opacity(0.2))
+            .clipShape(RoundedRectangle(cornerRadius: 20))
+        
+        VStack(spacing: 12) {
+            CustomTextField(text: $vm.firstName, placeholder: "First name")
+            CustomTextField(text: $vm.lastName, placeholder: "Last name")
+            CustomTextField(text: $vm.email, placeholder: "Email")
+        }
+        .padding()
+        .padding(.top, 70)
+        
+        Button {
+            if !vm.firstName.isEmpty && !vm.lastName.isEmpty && !vm.email.isEmpty {
+                if vm.isEmailValid(vm.email) {
+                    vm.registerUser()
+                } else {
+                    vm.alertMessage = "Please enter a valid email address"
+                    vm.showAlert = true
+                }
+            } else {
+                vm.alertMessage = "Fields cannot be empty"
+                vm.showAlert = true
+            }
+        } label: {
+            Text("Register")
+        }
+        .frame(maxWidth: .infinity, maxHeight: 50)
+        .background(Color.primary1)
+        .foregroundStyle(Color.primary2)
+        .clipShape(RoundedRectangle(cornerRadius: 20))
+        .padding()
+        .alert(isPresented: $vm.showAlert) {
+            Alert(title: Text("Error"), message: Text(vm.alertMessage), dismissButton: .default(Text("OK")))
+        }
+        
+        Spacer()
+        
     }
 }
 
 #Preview {
     Onboarding()
 }
+
+
