@@ -9,9 +9,6 @@ import SwiftUI
 
 struct Onboarding: View {
     
-    @State private var isLoading: Bool = false
-    @State private var isLoggedIn: Bool = false
-    
     @StateObject private var vm = OnboardingViewModel()
     
     var body: some View {
@@ -32,51 +29,33 @@ struct Onboarding: View {
             .padding(.top, 70)
             
             Button {
-                registerUser()
-                isLoading = false
+                vm.loginUser()
+                vm.isLoading = false
             } label: {
-                if isLoading {
+                if vm.isLoading {
                     ProgressView()
                 } else {
                     Text("Register")
+                        .frame(maxWidth: .infinity, maxHeight: 50)
+                        .background(Color.primary1)
+                        .foregroundStyle(Color.primary2)
+                        .clipShape(RoundedRectangle(cornerRadius: 20))
+                        .padding()
                 }
             }
-            .frame(maxWidth: .infinity, maxHeight: 50)
-            .background(Color.primary1)
-            .foregroundStyle(Color.primary2)
-            .clipShape(RoundedRectangle(cornerRadius: 20))
-            .padding()
             .alert(isPresented: $vm.showAlert) {
                 Alert(title: Text("Error"), message: Text(vm.alertMessage), dismissButton: .default(Text("OK")))
             }
-            .navigationDestination(isPresented: $isLoggedIn) {
+            .navigationDestination(isPresented: $vm.isLoggedIn) {
                 Home()
             }
             .onAppear {
                 if UserDefaults.standard.bool(forKey: vm.kIsLoggedIn) {
-                    isLoggedIn = true
+                    vm.isLoggedIn = true
                 }
             }
             
             Spacer()
-        }
-    }
-    
-    // MARK: - Register User
-    fileprivate func registerUser() {
-        isLoading = true
-        if !vm.firstName.isEmpty && !vm.lastName.isEmpty && !vm.email.isEmpty {
-            if vm.isEmailValid(vm.email) {
-                isLoggedIn = true
-                vm.registerUser()
-            } else {
-                vm.alertMessage = "Please enter a valid email address"
-                vm.showAlert = true
-            }
-        } else {
-            isLoading = false
-            vm.alertMessage = "Fields cannot be empty"
-            vm.showAlert = true
         }
     }
 }

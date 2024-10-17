@@ -13,6 +13,8 @@ class OnboardingViewModel: ObservableObject {
     @Published var firstName: String = ""
     @Published var lastName: String = ""
     @Published var email: String = ""
+    @Published var isLoading: Bool = false
+    @Published var isLoggedIn: Bool = false
     
     @Published var alertMessage: String = ""
     @Published var showAlert: Bool = false
@@ -22,7 +24,7 @@ class OnboardingViewModel: ObservableObject {
     private var kEmail = "Email"
     let kIsLoggedIn = "kIsLoggedIn"
     
-    
+    /// Register User
     func registerUser() {
         if !firstName.isEmpty || !lastName.isEmpty || !email.isEmpty {
             if isEmailValid(email) {
@@ -41,7 +43,25 @@ class OnboardingViewModel: ObservableObject {
         }
     }
     
+    /// Loging User
+    func loginUser() {
+        isLoading = true
+        if !firstName.isEmpty && !lastName.isEmpty && !email.isEmpty {
+            if isEmailValid(email) {
+                isLoggedIn = true
+                registerUser()
+            } else {
+                alertMessage = "Please enter a valid email address"
+                showAlert = true
+            }
+        } else {
+            isLoading = false
+            alertMessage = "Fields cannot be empty"
+            showAlert = true
+        }
+    }
     
+    /// Email Validation
     func isEmailValid(_ email: String) -> Bool {
         let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,}"
         let emailTest = NSPredicate(format: "SELF MATCHES %@", emailRegex)
