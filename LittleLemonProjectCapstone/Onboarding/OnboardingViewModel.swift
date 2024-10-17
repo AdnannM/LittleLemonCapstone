@@ -28,7 +28,6 @@ class OnboardingViewModel: ObservableObject {
                 UserDefaults.standard.set(firstName, forKey: kFirstName)
                 UserDefaults.standard.set(lastName, forKey: kLastName)
                 UserDefaults.standard.set(email, forKey: kEmail)
-                
                 print("User registered successfully")
             } else {
                 alertMessage = "Email is not valid"
