@@ -11,8 +11,8 @@ struct Onboarding: View {
     
     @State private var isLoading: Bool = false
     @State private var isLoggedIn: Bool = false
-    @StateObject private var vm = OnboardingViewModel()
     
+    @StateObject private var vm = OnboardingViewModel()
     
     var body: some View {
         
@@ -21,11 +21,7 @@ struct Onboarding: View {
                 .padding(.top, 50)
             
             Text("Registration")
-                .padding([.leading, .trailing], 40)
-                .padding([.top, .bottom], 8)
-                .foregroundStyle(Color.primary1)
-                .background(Color.gray.opacity(0.2))
-                .clipShape(RoundedRectangle(cornerRadius: 20))
+                .styledText()
             
             VStack(spacing: 12) {
                 CustomTextField(text: $vm.firstName, placeholder: "First name")
@@ -82,5 +78,4 @@ struct Onboarding: View {
 #Preview {
     Onboarding()
 }
-
 
