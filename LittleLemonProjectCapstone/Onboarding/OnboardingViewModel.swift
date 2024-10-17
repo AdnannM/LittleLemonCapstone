@@ -20,6 +20,7 @@ class OnboardingViewModel: ObservableObject {
     private var kFirstName = "First Name"
     private var kLastName = "Last Name"
     private var kEmail = "Email"
+    let kIsLoggedIn = "kIsLoggedIn"
     
     
     func registerUser() {
@@ -28,6 +29,7 @@ class OnboardingViewModel: ObservableObject {
                 UserDefaults.standard.set(firstName, forKey: kFirstName)
                 UserDefaults.standard.set(lastName, forKey: kLastName)
                 UserDefaults.standard.set(email, forKey: kEmail)
+                UserDefaults.standard.set(true, forKey: kIsLoggedIn)
                 print("User registered successfully")
             } else {
                 alertMessage = "Email is not valid"

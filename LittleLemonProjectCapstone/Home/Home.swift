@@ -48,7 +48,7 @@ struct Home: View {
         case .main:
             Main()
         case .profile:
-            EmptyView()
+            UserProfile()
         }
     }
 }

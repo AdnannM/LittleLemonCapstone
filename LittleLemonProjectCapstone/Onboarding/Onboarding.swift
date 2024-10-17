@@ -33,6 +33,7 @@ struct Onboarding: View {
             
             Button {
                 registerUser()
+                isLoading = false
             } label: {
                 if isLoading {
                     ProgressView()
@@ -50,6 +51,11 @@ struct Onboarding: View {
             }
             .navigationDestination(isPresented: $isLoggedIn) {
                 Home()
+            }
+            .onAppear {
+                if UserDefaults.standard.bool(forKey: vm.kIsLoggedIn) {
+                    isLoggedIn = true
+                }
             }
             
             Spacer()
