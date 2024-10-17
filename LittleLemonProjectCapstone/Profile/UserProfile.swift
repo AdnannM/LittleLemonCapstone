@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-
 struct UserProfile: View {
     
     @StateObject private var vm = UserProfileViewModel()
@@ -31,6 +30,9 @@ struct UserProfile: View {
                 
                 Section(header: Text("User Settings")) {
                     Toggle("Allow Notification", isOn: $vm.allowNotification)
+                        .onChange(of: vm.allowNotification) {
+                            vm.requestNotificationPermission()
+                        }
                     Toggle("Dark & Light Mode", isOn: $vm.darkLightMode)
                 }
                 .preferredColorScheme(vm.darkLightMode ? .dark : .light)

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct UserProfileHeader: View {
     var body: some View {
+        
         HStack {
             Image("profilePicture")
                 .resizable()
