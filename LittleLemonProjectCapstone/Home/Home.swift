@@ -7,24 +7,6 @@
 
 import SwiftUI
 
-enum TabBar: String, CaseIterable {
-    case main
-    case profile
-    
-    var title: String {
-        rawValue.capitalized
-    }
-    
-    var systemImage: String {
-        switch self {
-        case .main:
-            return "list.dash"
-        case .profile:
-            return "square.and.pencil"
-        }
-    }
-}
-
 struct Home: View {
     
     let persistenceController = PersistenceController.shared

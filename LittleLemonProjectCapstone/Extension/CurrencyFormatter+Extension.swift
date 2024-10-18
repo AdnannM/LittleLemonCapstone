@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 extension NumberFormatter {
     
     static var currency: NumberFormatter {
