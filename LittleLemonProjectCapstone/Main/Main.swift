@@ -6,64 +6,127 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct Main: View {
-    @State var text: String = ""
+    
+    @Environment(\.managedObjectContext) private var viewContext
+    @StateObject private var vm = MainViewModel()
+    
+    @State var searchText: String = ""
     
     var body: some View {
         VStack(spacing: 0) {
-            // Logo and header section
             MainHeader()
             MainHero()
+            OrderDeliverySection()
+            Divider().padding([.leading, .trailing, .top])
+            DishesListView()
+        }
+        .task {
+            await vm.getMenuData(coreDataContext: viewContext)
+        }
+    }
+    
+    // MARK: - OrderDeliverySection
+    @ViewBuilder
+    private func OrderDeliverySection() -> some View {
+        VStack(alignment: .leading) {
+            Text("Order for Delivery")
+                .font(.title2)
+                .fontWeight(.bold)
+                .padding([.top, .leading], 20)
             
-            VStack(alignment: .leading) {
-                Text("Order for Delivery")
-                    .font(.title2)
-                    .fontWeight(.bold)
-                    .padding([.top, .leading], 20)
-                
-                ScrollView(.horizontal) {
-                    HStack(spacing: 20) {
-                        ForEach(1...5, id: \.self) { _ in
-                            Text("Buttons")
-                                .styledText()
+            ScrollView(.horizontal,  showsIndicators: false) {
+                HStack(spacing: 20) {
+                    FetchedObjects(
+                        predicate: buildPredicate(),
+                        sortDescriptors: buildSortDescriptors()
+                    ) { (dishes: [Dish]) in
+                        ForEach(dishes, id: \.self) { dish in
+                            NavigationLink(destination: MainOrder(dish: dish)) {
+                                Text(dish.category ?? "")
+                                    .styledText()
+                            }
                         }
                     }
-                    .padding()
                 }
-                .frame(maxWidth: .infinity, maxHeight: 50)
+                .padding()
             }
-            
-            Divider().padding([.leading, .trailing, .top])
-            
-            // Navigation section with search and list
-            NavigationView {
+            .frame(maxWidth: .infinity, maxHeight: 50)
+        }
+    }
+    
+    // MARK: - DishesListView
+    @ViewBuilder
+    private func DishesListView() -> some View {
+        NavigationView {
+            FetchedObjects(
+                predicate: buildPredicate(),
+                sortDescriptors: buildSortDescriptors()
+            ) { (dishes: [Dish]) in
                 List {
-                    HStack(spacing: 25) {
-                        VStack(alignment: .leading, spacing: 10) {
-                            Text("Greek Salad")
-                                .fontWeight(.bold)
-                            Text("The famous greek salad of crispy lettuce, peppers, olives, our Chicago.")
-                                .foregroundStyle(.gray)
-                                .fontWeight(.bold)
-                                .font(.caption)
-                                .multilineTextAlignment(.leading)
-                            Text("$ 10")
-                                .fontWeight(.bold)
+                    ForEach(dishes, id: \.self) { dish in
+                        NavigationLink(destination: MainDetails(dish: dish)) {
+                            DishRowView(dish: dish)
                         }
-                        
-                        Image("testImage")
-                            .resizable()
-                            .frame(width: 130, height: 100)
-                            .background(.red)
-                            .cornerRadius(20)
                     }
                 }
                 .listStyle(.plain)
-                .searchable(text: $text)
+                .searchable(text: $searchText)
             }
         }
     }
+    
+    // MARK: - DishRowView
+    @ViewBuilder
+    private func DishRowView(dish: Dish) -> some View {
+        HStack(spacing: 25) {
+            VStack(alignment: .leading, spacing: 10) {
+                Text(dish.title ?? "")
+                    .fontWeight(.bold)
+                
+                Text(dish.itemDescription ?? "")
+                    .foregroundStyle(.gray)
+                    .fontWeight(.bold)
+                    .font(.caption)
+                    .multilineTextAlignment(.leading)
+                    .lineLimit(nil)
+                
+                Text("$ \(dish.price ?? "")")
+                    .fontWeight(.bold)
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            
+            AsyncImage(url: URL(string: dish.image ?? "")) { image in
+                image
+                    .resizable()
+                    .frame(width: 130, height: 100)
+                    .cornerRadius(20)
+            } placeholder: {
+                ProgressView()
+            }
+        }
+        .padding(.vertical, 10)
+    }
+    
+    // MARK: - Helper Functions
+    private func buildPredicate() -> NSPredicate {
+        if searchText.isEmpty {
+            return NSPredicate(value: true)
+        } else {
+            return NSPredicate(format: "title CONTAINS[c] %@", searchText)
+        }
+    }
+    
+    private func buildSortDescriptors() -> [NSSortDescriptor] {
+        return [NSSortDescriptor(
+            key: "title",
+            ascending: true,
+            selector: #selector(NSString.localizedStandardCompare(_:)))
+        ]
+    }
+
 }
 
 

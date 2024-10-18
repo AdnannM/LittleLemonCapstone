@@ -27,6 +27,8 @@ enum TabBar: String, CaseIterable {
 
 struct Home: View {
     
+    let persistenceController = PersistenceController.shared
+    
     var body: some View {
         TabView {
             ForEach(TabBar.allCases, id: \.self) { tab in
@@ -37,6 +39,7 @@ struct Home: View {
                             systemImage: tab.systemImage
                         )
                     }
+                    .environment(\.managedObjectContext, persistenceController.container.viewContext)
             }
         }
         .navigationBarBackButtonHidden(true)
