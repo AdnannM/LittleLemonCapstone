@@ -35,7 +35,7 @@ struct UserProfile: View {
                         }
                     Toggle("Dark & Light Mode", isOn: $vm.darkLightMode)
                 }
-                .preferredColorScheme(vm.darkLightMode ? .dark : .light)
+//                .preferredColorScheme(vm.darkLightMode ? .dark : .light)
             }
             .background(.orange)
             .frame(maxHeight: 360)
