@@ -7,12 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A6FA739C2CC28A4C00FD4595 /* Dish+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6FA739B2CC28A4C00FD4595 /* Dish+CoreDataProperties.swift */; };
+		A6FA74572CC2C5A200FD4595 /* Dish+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6FA74562CC2C5A200FD4595 /* Dish+CoreDataProperties.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		A6018E8E2CC03A32006670A9 /* LittleLemonProjectCapstone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LittleLemonProjectCapstone.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		A6FA739B2CC28A4C00FD4595 /* Dish+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dish+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		A6FA74562CC2C5A200FD4595 /* Dish+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dish+CoreDataProperties.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -37,7 +37,7 @@
 		A6018E852CC03A32006670A9 = {
 			isa = PBXGroup;
 			children = (
-				A6FA739B2CC28A4C00FD4595 /* Dish+CoreDataProperties.swift */,
+				A6FA74562CC2C5A200FD4595 /* Dish+CoreDataProperties.swift */,
 				A6018E902CC03A32006670A9 /* LittleLemonProjectCapstone */,
 				A6018E8F2CC03A32006670A9 /* Products */,
 			);
@@ -125,7 +125,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A6FA739C2CC28A4C00FD4595 /* Dish+CoreDataProperties.swift in Sources */,
+				A6FA74572CC2C5A200FD4595 /* Dish+CoreDataProperties.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
