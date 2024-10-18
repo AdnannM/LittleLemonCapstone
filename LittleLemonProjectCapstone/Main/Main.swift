@@ -68,7 +68,12 @@ struct Main: View {
                 List {
                     ForEach(dishes, id: \.self) { dish in
                         NavigationLink(destination: MainDetails(dish: dish)) {
-                            DishRowView(dish: dish)
+                            if vm.isDataLoading {
+                                ProgressView()
+                                    .scaleEffect(0.3)
+                            } else {
+                                DishRowView(dish: dish)
+                            }
                         }
                     }
                 }
@@ -93,8 +98,13 @@ struct Main: View {
                     .multilineTextAlignment(.leading)
                     .lineLimit(nil)
                 
-                Text("$ \(dish.price ?? "")")
-                    .fontWeight(.bold)
+                
+                if let price = Double(dish.price ?? "") {
+                    let forrmatedPrice = NumberFormatter.currency.string(from: price as NSNumber) ?? ""
+                    Text(forrmatedPrice)
+                        .fontWeight(.bold)
+                }
+                    
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             

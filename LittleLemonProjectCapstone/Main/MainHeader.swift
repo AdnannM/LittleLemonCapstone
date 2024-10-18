@@ -14,10 +14,12 @@ struct MainHeader: View {
             HStack(spacing: 40) {
                 Spacer()
                 Image("logo")
-                Image(systemName: "calendar.badge.plus")
-                    .font(.title)
-                    .padding(.trailing, 20)
-                    .foregroundStyle(Color.primary1)
+                NavigationLink(destination: EmptyView()) {
+                    Image(systemName: "calendar.badge.plus")
+                        .font(.title)
+                        .padding(.trailing, 20)
+                        .foregroundStyle(Color.primary1)
+                }
             }
         }
         .padding()
