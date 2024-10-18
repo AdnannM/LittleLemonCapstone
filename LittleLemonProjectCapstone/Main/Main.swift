@@ -24,7 +24,7 @@ struct Main: View {
             DishesListView()
         }
         .task {
-            await vm.getMenuData(coreDataContext: viewContext)
+            await vm.loadMenuData(context: viewContext)
         }
     }
     
@@ -68,7 +68,7 @@ struct Main: View {
                 List {
                     ForEach(dishes, id: \.self) { dish in
                         NavigationLink(destination: MainDetails(dish: dish)) {
-                            if vm.isDataLoading {
+                            if vm.isLoading {
                                 ProgressView()
                                     .scaleEffect(0.3)
                             } else {

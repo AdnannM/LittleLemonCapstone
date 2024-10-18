@@ -10,7 +10,6 @@ import SwiftUI
 struct UserProfile: View {
     
     @StateObject private var vm = UserProfileViewModel()
-    
     @Environment(\.dismiss) var dismiss
     
     var body: some View {

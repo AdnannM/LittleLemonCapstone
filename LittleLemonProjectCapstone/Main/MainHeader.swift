@@ -9,7 +9,9 @@ import Foundation
 import SwiftUI
 
 struct MainHeader: View {
+    
     var body: some View {
+        
         VStack {
             HStack(spacing: 40) {
                 Spacer()
