@@ -83,42 +83,6 @@ struct Main: View {
         }
     }
     
-    // MARK: - DishRowView
-    @ViewBuilder
-    private func DishRowView(dish: Dish) -> some View {
-        HStack(spacing: 25) {
-            VStack(alignment: .leading, spacing: 10) {
-                Text(dish.title ?? "")
-                    .fontWeight(.bold)
-                
-                Text(dish.itemDescription ?? "")
-                    .foregroundStyle(.gray)
-                    .fontWeight(.bold)
-                    .font(.caption)
-                    .multilineTextAlignment(.leading)
-                    .lineLimit(nil)
-                
-                
-                if let price = Double(dish.price ?? "") {
-                    let forrmatedPrice = NumberFormatter.currency.string(from: price as NSNumber) ?? ""
-                    Text(forrmatedPrice)
-                        .fontWeight(.bold)
-                }
-                    
-            }
-            .frame(maxWidth: .infinity, alignment: .leading)
-            
-            AsyncImage(url: URL(string: dish.image ?? "")) { image in
-                image
-                    .resizable()
-                    .frame(width: 130, height: 100)
-                    .cornerRadius(20)
-            } placeholder: {
-                ProgressView()
-            }
-        }
-        .padding(.vertical, 10)
-    }
     
     // MARK: - Helper Functions
     private func buildPredicate() -> NSPredicate {

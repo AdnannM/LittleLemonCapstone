@@ -16,10 +16,17 @@ struct MainOrder: View {
             .padding(.top, 40)
         Text(dish.category ?? "")
             .styledText()
-        Spacer()
+        
+        List {
+            NavigationLink(destination: MainDetails(dish: dish)) {
+                DishRowView(dish: dish)
+            }
+        }
     }
 }
 
 #Preview {
     MainOrder(dish: Dish())
 }
+
+

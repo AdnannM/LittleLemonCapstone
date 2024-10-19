@@ -12,8 +12,16 @@ struct MainDetails: View {
     var dish: Dish
     
     var body: some View {
-        Text(dish.category ?? "")
-            .styledText()
+        VStack {
+            Text(dish.title ?? "")
+                .styledText()
+            
+            Text(dish.itemDescription ?? "")
+                .styledText()
+            
+            Text(dish.price ?? "")
+                .styledText()
+        }
     }
 }
 
