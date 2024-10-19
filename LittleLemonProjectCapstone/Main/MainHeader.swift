@@ -16,7 +16,7 @@ struct MainHeader: View {
             HStack(spacing: 40) {
                 Spacer()
                 Image("logo")
-                NavigationLink(destination: EmptyView()) {
+                NavigationLink(destination: Reservation()) {
                     Image(systemName: "calendar.badge.plus")
                         .font(.title)
                         .padding(.trailing, 20)

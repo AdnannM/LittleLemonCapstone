@@ -55,6 +55,6 @@ struct MainHero: View {
             }
             .padding()
         }
-        .frame(maxWidth: .infinity, maxHeight: 200)
+        .frame(maxWidth: .infinity, maxHeight: 220)
     }
 }
